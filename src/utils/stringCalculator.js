@@ -7,7 +7,12 @@ export function add(numbers) {
     delimiter = new RegExp(parts[0].slice(2));
     numbers = parts[1];
   }
-  return numbers
-    .split(delimiter)
-    .reduce((acc, num) => acc + parseInt(num, 10), 0);
+
+  const integers = numbers.split(delimiter).map(Number);
+  const negatives = integers.filter((num) => num < 0);
+  if (negatives.length) {
+    throw new Error(`Negative numbers not allowed: ${negatives.join(", ")}`);
+  }
+
+  return integers.reduce((acc, num) => acc + num, 0);
 }
