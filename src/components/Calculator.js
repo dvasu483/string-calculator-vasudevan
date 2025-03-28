@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { add } from "../utils/stringCalculator";
+import "./Calculator.css"; // Import CSS for styling
 
 export default function Calculator() {
   const [input, setInput] = useState("");
@@ -11,7 +12,6 @@ export default function Calculator() {
     try {
       const sanitizedInput = input.replace(/\\n/g, "\n");
       setResult(add(sanitizedInput));
-      debugger;
       setError(null);
     } catch (error) {
       setError(error.message);
@@ -20,15 +20,19 @@ export default function Calculator() {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        value={input}
-        onChange={(event) => setInput(event.target.value)}
-      />
-      <button type="submit">Calculate</button>
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      {result !== null && <p>Result: {result}</p>}
-    </form>
+    <div className="calculator-container">
+      <form className="calculator-form" onSubmit={handleSubmit}>
+        <h1>String Calculator</h1>
+        <input
+          type="text"
+          placeholder="Enter numbers (e.g., 1,2 or 1\n2)"
+          value={input}
+          onChange={(event) => setInput(event.target.value)}
+        />
+        <button type="submit">Calculate</button>
+        {error && <p className="error-message">{error}</p>}
+        {result !== null && <p className="result-message">Result: {result}</p>}
+      </form>
+    </div>
   );
 }
