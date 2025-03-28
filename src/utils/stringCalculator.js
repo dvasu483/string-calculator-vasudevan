@@ -1,4 +1,4 @@
 export function add(numbers) {
   if (numbers === "") return 0;
-  return parseInt(numbers, 10);
+  return numbers.split(",").reduce((acc, num) => acc + parseInt(num, 10), 0);
 }
